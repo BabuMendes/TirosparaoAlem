@@ -5,7 +5,7 @@ using System.Reflection;
 using System.Security.Cryptography;
 using System.Threading;
 using UnityEngine;
-using static System.Net.Mime.MediaTypeNames;
+using UnityEngine.UI;
 
 public class Personagem : MonoBehaviour
 {
@@ -13,9 +13,9 @@ public class Personagem : MonoBehaviour
     //private Animator Anim;
     public float sensibilidade;
     private float velocidadeP;
-    //public Image sangue
+    public Image sangue;
 
-    //public int hp = 100;
+    public int hp = 100;
 
 
 
@@ -38,7 +38,7 @@ public class Personagem : MonoBehaviour
         //Correr
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            velocidadeP = 3.5;
+            velocidadeP = 3;
         }
         else
         {
@@ -70,15 +70,15 @@ public class Personagem : MonoBehaviour
 
     }
 
-    //private void OnCollisionEnter(Collision collision)
-    //{
-    //    if (collision.gameObject.tag == "Ataque_Inimigo")
-    //    {
-    //        hp = hp - 10;
-    //        float alphaSangue = hp / 100;
-    //        alphaSangue = 1 - alphaSangue
-    //        sangue.color = new Vector4(1, 1, 1, alphaSangue);
-    //    }
-    //}
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "Ataque_Inimigo")
+        {
+            hp = hp - 10;
+            float alphaSangue = hp / 100;
+            alphaSangue = 1 - alphaSangue;
+            sangue.color = new Vector4(1, 1, 1, alphaSangue);
+        }
+    }
 }
 

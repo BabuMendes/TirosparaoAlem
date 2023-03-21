@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Break_Ghost : MonoBehaviour
+public class Break_Ghost50: MonoBehaviour
 {
     public bool Is_Breaked = false;
     public GameObject ghost_normal;
