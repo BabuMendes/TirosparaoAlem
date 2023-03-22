@@ -38,7 +38,7 @@ public class Personagem : MonoBehaviour
         //Correr
         if (Input.GetKey(KeyCode.LeftShift))
         {
-            velocidadeP = 3;
+            velocidadeP = 5;
         }
         else
         {
