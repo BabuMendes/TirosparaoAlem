@@ -9,11 +9,14 @@ using UnityEngine.UI;
 
 public class Personagem : MonoBehaviour
 {
+    public int mortos;
     private Rigidbody Rb;
     //private Animator Anim;
     public float sensibilidade;
     private float velocidadeP;
-    public Image sangue;
+    public Image vitoria;
+    public List<GameObject> ListaInimigos;
+    public int indiceInimigos = 0;
 
     public int hp = 100;
 
@@ -30,12 +33,27 @@ public class Personagem : MonoBehaviour
     void Update()
     {
         Mover();
+
+        if (indiceInimigos < ListaInimigos.Count)
+        {
+            indiceInimigos++;
+        }
+
+        if (mortos == indiceInimigos)
+        {
+            vitoria.gameObject.SetActive(true);
+        }
+    }
+
+    public void Contar(int contagem)
+    {
+        mortos = mortos + contagem;
     }
 
 
     void Mover()
     {
-        //Correr
+        //Correr;
         if (Input.GetKey(KeyCode.LeftShift))
         {
             velocidadeP = 5;
@@ -53,32 +71,12 @@ public class Personagem : MonoBehaviour
 
         Rb.velocity = new Vector3(velCorrigida.x, Rb.velocity.y, velCorrigida.z);
 
-        //if (velX != 0 || velZ != 0)
-        //{
-        //    Anim.SetBool("Andar", true);
-        //}
-        //else if (velX == 0 && velZ == 0)
-        //{
-        //    Anim.SetBool("Andar", false);
-        //}
-
         //Movimento Girar
         float mouseX = Input.GetAxis("Mouse X") * sensibilidade * Time.deltaTime;
         transform.Rotate(Vector3.up * mouseX);
 
 
 
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Ataque_Inimigo")
-        {
-            hp = hp - 10;
-            float alphaSangue = hp / 100;
-            alphaSangue = 1 - alphaSangue;
-            sangue.color = new Vector4(1, 1, 1, alphaSangue);
-        }
     }
 }
 

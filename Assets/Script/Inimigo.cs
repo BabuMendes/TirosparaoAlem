@@ -2,14 +2,20 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.AI;
 
 public class Inimigo : MonoBehaviour
 {
+    public Personagem Personagem;
     private Animator Anim;
     private GameObject Jogador;
     public GameObject MeuAtaque;
     private NavMeshAgent Fantasma;
+    public Image derrota;
+
+
+    public float distProcurar;
 
     // Start is called before the first frame update
     void Start()
@@ -21,42 +27,33 @@ public class Inimigo : MonoBehaviour
 
     private void Update()
     {
-        transform.LookAt(Jogador.transform.position);
+        float dist = Vector3.Distance(Jogador.transform.position, transform.position);
+        bool procurar = (dist < distProcurar);
 
-        Fantasma.SetDestination(Jogador.transform.position);
+        if (procurar == true)
+        {
+            transform.LookAt(Jogador.transform.position);
+            Fantasma.SetDestination(Jogador.transform.position);
+        }
 
-        //if (Vector3.Distance(Jogador.transform.position, transform.position) < 6)
-        //{
-        //    Anim.SetBool("Atacando", true);
-
-        //}
-        //else
-        //{
-        //    Anim.SetBool("Atacando", false);
-        //}
+        if (procurar == false);
+        {
+            transform.LookAt(transform.position);
+        }
     }
 
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.tag == "Bala")
         {
-
-            Debug.Log("AQUUII");
-                Anim.SetTrigger("Morte");
-            Destroy(this.gameObject, 2f);
+            Personagem.Contar(1);
+            Destroy(this.gameObject);
             Destroy(collision.gameObject);
-
         }
-        Debug.Log("XXXXXXXXXXX");
+
+        if (collision.gameObject.tag == "Player") 
+        {
+            derrota.gameObject.SetActive(true);
+        }
     }
-
-    //public void AtivarSoco()
-    //{
-       // MeuAtaque.SetActive(true);
-    //}
-
-   // public void DesativarSoco()
-   // {
-   //     MeuAtaque.SetActive(false);
-   // }
 }
