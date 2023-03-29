@@ -7,13 +7,13 @@ public class Arma : MonoBehaviour
 {
     public GameObject PontoDeSaida;
     public GameObject Bala;
-    public int limiteMunicao = 30;
+    public int limiteMunicao;
     public int municao = 30;
 
     private void Start()
     {
         UnityEngine.Cursor.lockState = CursorLockMode.Locked;
-        UnityEngine.Cursor.visible = false;
+        //UnityEngine.Cursor.visible = false;
     }
 
 
@@ -24,7 +24,7 @@ public class Arma : MonoBehaviour
         {
             if (municao > 0)
             {
-                municao--;
+                //municao--;
                 GameObject Disparo = Instantiate(Bala, PontoDeSaida.transform.position, transform.rotation);
                 Disparo.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
                 Destroy(Disparo, 2f);

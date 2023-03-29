@@ -54,6 +54,7 @@ public class Inimigo : MonoBehaviour
         if (collision.gameObject.tag == "Player") 
         {
             derrota.gameObject.SetActive(true);
+            UnityEngine.Cursor.visible = true;
         }
     }
 }
